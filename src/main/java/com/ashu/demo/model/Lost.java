@@ -20,6 +20,16 @@ public class Lost {
 
     private String imageUrl;
 
+    private boolean found;
+
+    public boolean isFound() {
+        return found;
+    }
+
+    public void setFound(boolean found) {
+        this.found = found;
+    }
+
     @NotEmpty
     private String description;
 
@@ -37,6 +47,7 @@ public class Lost {
 
     public Lost(){
         appUsers = new ArrayList<>();
+        found=false;
 
 
     }

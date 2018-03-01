@@ -70,26 +70,31 @@
 
     <tr>
       <th scope="col">Title</th>
-      <th scope="col">Descriptione</th>
+      <th scope="col">Description</th>
 
     </tr>
     </thead>
     <tbody th:each="lost: ${newLosts}">
-    <tr>
+    <tr  th:if="${lost.found}==false">
 
       <!--<td><span sec:authentication="name">Bob</span></td>-->
       <td th:text="${lost.title}">potluck.item</td>
       <td th:text="${lost.description}">potluck.item</td>
 
       <td>
-      <span th:each="user:${lost.appUsers}">
+      <span  sec:authorize="isAuthenticated()" th:each="user:${lost.appUsers}">
             <p th:text="${user.firstName}">potluck.item</p>
-          </span>
+      </span>
       </td>
+
+      <td sec:authorize="hasAuthority('ADMIN')">
+        <a th:href="@{/lost/{id}(id=${lost.id})}">Change to Found</a>
+
+      </td>
+
       <!--<td th:text="">potluck.item</td>-->
 
-      <td> <a th:href="@{/editpotluck/{id}(id=${lost.id})}">Edit</a></td>
-
+      <td sec:authorize="isAuthenticated()"> <a th:href="@{/editpotluck/{id}(id=${lost.id})}">Edit</a></td>
 
 
     </tr>

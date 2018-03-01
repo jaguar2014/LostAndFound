@@ -28,11 +28,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/","/register","/css/**","/vendor/**","/js/**","/img/**").permitAll()
-
-                .antMatchers("/addlost","/listlost").hasAnyAuthority("USER" ,"ADMIN")
+                 .antMatchers("/adminPage","/lost/**").hasAuthority("ADMIN")
+                .antMatchers("/addlost","/listlost","/lost/**").hasAnyAuthority("USER" ,"ADMIN")
 
                 .anyRequest().authenticated()
                 .and()
+
                 .formLogin().defaultSuccessUrl("/listlost")
                 .loginPage("/login").permitAll()
                 //.formLogin().successForwardUrl("/loggedin")

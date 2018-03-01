@@ -55,7 +55,7 @@
         <div class="container">
             <h1 class="masthead-heading mb-0">Welcome</h1>
             <h2 class="masthead-subheading mb-0">Thank You </h2>
-            <a href="/addlost" class="btn btn-primary btn-xl rounded-pill mt-5">Please click here to add lost items </a>
+            <a href="/addlost" class="btn btn-primary btn-xl rounded-pill mt-5">Please click here to Report lost items </a>
         </div>
     </div>
     <div class="bg-circle-1 bg-circle"></div>
@@ -75,7 +75,7 @@
         </tr>
         </thead>
         <tbody th:each="lost: ${newLosts}">
-        <tr>
+        <tr th:if="${lost.found}==false">
 
             <!--<td><span sec:authentication="name">Bob</span></td>-->
             <td th:text="${lost.title}">potluck.item</td>
@@ -85,7 +85,13 @@
           <span th:each="user:${lost.appUsers}">
             <p th:text="${user.firstName}">potluck.item</p>
           </span>
-            </td>
+      </td>
+            <td sec:authorize="isAuthenticated()" th:text= "${lost.found}?'Found':'Not Yet Found'">Lost Status</td>
+
+           <td  sec:authorize="hasAuthority('ADMIN')">
+               <a th:href="@{/lost/{id}(id=${lost.id})}">Change To Found</a>
+
+           </td>
             <!--<td th:text="">potluck.item</td>-->
 
             <td> <a th:href="@{/editpotluck/{id}(id=${lost.id})}">Edit</a></td>

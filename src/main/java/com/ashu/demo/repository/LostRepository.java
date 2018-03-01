@@ -11,4 +11,6 @@ public interface LostRepository extends CrudRepository<Lost, Long> {
 
     List<Lost> findLostsByAppUsersIn(List<AppUser> appUsers);
     List<Lost> findByAppUsers(AppUser appUser);
+    Iterable<Lost> findByFoundTrue();
+    Iterable<Lost>findByFoundFalse();
 }
