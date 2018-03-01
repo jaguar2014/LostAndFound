@@ -161,7 +161,9 @@ public class HomeController {
     @GetMapping("/editlost/{id}")
     public String editLost(@PathVariable("id") long id, Model model, Authentication auth) {
         Lost lost = lostRepository.findOne(id);
-        model.addAttribute("lostAndFound", lost);
+        model.addAttribute("lost", lost);
+        model.addAttribute("categories", categoryRepository.findAll());
+
 
         return "lostform";
 

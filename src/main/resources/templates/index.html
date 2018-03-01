@@ -53,8 +53,8 @@
 <header class="masthead text-center text-white">
   <div class="masthead-content">
     <div class="container">
-      <h1 class="masthead-heading mb-0">Welcome</h1>
-      <h2 class="masthead-subheading mb-0">Thank You </h2>
+      <h1 class="masthead-heading mb-0">Lost :( and Found :)</h1>
+      <!--<h2 class="masthead-subheading mb-0">Thank You </h2>-->
       <a sec:authorize="isAuthenticated()" href="/addlost" class="btn btn-primary btn-xl rounded-pill mt-5">Please click here to add lost items </a>
     </div>
   </div>
@@ -95,7 +95,7 @@
 
       <!--<td th:text="">potluck.item</td>-->
 
-      <td sec:authorize="isAuthenticated()"> <a th:href="@{/editpotluck/{id}(id=${lost.id})}">Edit</a></td>
+      <td sec:authorize="isAuthenticated()"> <a th:href="@{/editlost/{id}(id=${lost.id})}">Edit</a></td>
 
 
     </tr>
