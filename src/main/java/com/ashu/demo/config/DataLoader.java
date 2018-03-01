@@ -98,14 +98,6 @@ public class DataLoader implements CommandLineRunner {
 
 
 
-
-        appUser= new AppUser();
-        appUser.setUsername("riri");
-        appUser.setFirstName("rekik");
-        appUser.setPassword("pass");
-        appUser.addRole(roleRepo.findAppRoleByRoleName("ADMIN"));
-        userRepository.save(appUser);
-
         lost = new Lost();
         lost.setTitle("other lost");
         lost.setDescription("I lost my other stuff");
