@@ -31,7 +31,7 @@
     <form class="form-horizontal" th:action="@{/addlostuser}" th:object="${lost}" method="post">
         <input type="hidden" th:field="*{id}">
         <!-- Form Name -->
-        <legend align="Center">Start sharing!</legend>
+        <legend align="Center">Report Lost Items</legend>
         <!-- Text input-->
         <div class="form-group">
             <div class="col-sm-10">
@@ -47,20 +47,18 @@
                 <input  th:field="*{description}"  name="item" placeholder="Enter description" class="form-control"  type="text">
             </div>
         </div>
+       <div>
+           <label for="cate"> Select Category</label>
 
-        <select th:field="*{category}" class="selectpicker">
+        <select id="cate" th:field="*{category}" class="selectpicker">
 
 
 
             <option th:each="eachCat:${categories}" th:value="${eachCat.id}" th:text="${eachCat.name}" th:selected="*{category}"></option>
 
-        </select>
+        </select></div>
 
-        <!--<select th:field="*{jobOrg}">-->
-            <!--<option th:each="eachOrg:${organizations}" th:value="${eachOrg.id}" th:text="${eachOrg.orgName}" th:selected="*{jobOrg}"></option>-->
-        <!--</select>-->
 
-        <!-- Button -->
 
         <div class="form-group">
             <div class="col-md-10">
