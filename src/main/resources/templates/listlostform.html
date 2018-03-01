@@ -69,21 +69,21 @@
         <thead>
 
         <tr>
-            <th scope="col">Item</th>
-            <th scope="col">Item Type</th>
-            <th scope="col">Serving Size</th>
+            <th scope="col">Title</th>
+            <th scope="col">Descriptione</th>
+
         </tr>
         </thead>
         <tbody th:each="lost: ${newLosts}">
         <tr>
 
             <!--<td><span sec:authentication="name">Bob</span></td>-->
-            <td th:text="${lost.item}">potluck.item</td>
-            <td th:text="${lost.itemType}">potluck.item</td>
-            <td th:text="${lost.servingSize}">potluck.item</td>
-            <td>
+            <td th:text="${lost.title}">potluck.item</td>
+            <td th:text="${lost.description}">potluck.item</td>
+
+      <td>
           <span th:each="user:${lost.appUsers}">
-            <p th:text="${lost.firstName}">potluck.item</p>
+            <p th:text="${user.firstName}">potluck.item</p>
           </span>
             </td>
             <!--<td th:text="">potluck.item</td>-->

@@ -5,6 +5,7 @@ import com.ashu.demo.model.Lost;
 
 import com.ashu.demo.repository.AppRoleRepository;
 import com.ashu.demo.repository.AppUserRepository;
+import com.ashu.demo.repository.CategoryRepository;
 import com.ashu.demo.repository.LostRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,9 @@ public class HomeController {
 
     @Autowired
     LostRepository lostRepository;
+
+    @Autowired
+    CategoryRepository categoryRepository;
 
     @GetMapping("/")
     public String showIndex(Model model,Authentication auth) {
@@ -78,6 +82,7 @@ public class HomeController {
     private String addLost(Model model){
         Lost lost = new Lost();
         model.addAttribute("lost", lost);
+        model.addAttribute("categories", categoryRepository.findAll());
 
 
         return "lostform";
@@ -96,7 +101,7 @@ public class HomeController {
 
 
 
-        return "redirect:/lostlost";
+        return "redirect:/listlost";
     }
 
     @GetMapping("/listlost")
@@ -106,7 +111,7 @@ public class HomeController {
 
         List<Lost> losts = lostRepository.findByAppUsers(appUser);
        // List<PotLuck> potLucks  = potLuckRepository.findPotLucksByAppUsersIn(Arrays.asList(appUser));
-        model.addAttribute("newPots", losts);
+        model.addAttribute("newLosts", losts);
         model.addAttribute("appUser", appUser);
         return "listlostform";
     }

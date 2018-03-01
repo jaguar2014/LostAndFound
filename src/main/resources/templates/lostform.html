@@ -48,14 +48,16 @@
             </div>
         </div>
 
-        <select id="category" name="category" class="selectpicker">
+        <select th:field="*{category}" class="selectpicker">
 
-            <option th:text="${category}" th:value="${post.category}"></option>
+
+
+            <option th:each="eachCat:${categories}" th:value="${eachCat.id}" th:text="${eachCat.name}" th:selected="*{category}"></option>
 
         </select>
 
-        <!--<select id="skill" name="skill" class="selectpicker" multiple="multiple">-->
-            <!--<option th:each="skill: ${skills}" th:value="${skill.id}" th:text="${skill.skillName}"> skill.skillName</option>-->
+        <!--<select th:field="*{jobOrg}">-->
+            <!--<option th:each="eachOrg:${organizations}" th:value="${eachOrg.id}" th:text="${eachOrg.orgName}" th:selected="*{jobOrg}"></option>-->
         <!--</select>-->
 
         <!-- Button -->
