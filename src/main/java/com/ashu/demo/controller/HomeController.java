@@ -40,6 +40,8 @@ public class HomeController {
     public String showIndex(Model model, Authentication auth) {
 
         Iterable<Lost> losts = lostRepository.findAll();
+
+
         // Iterable<AppUser> appUsers = userRepository.findByPotLucksIn(losts);
         // Iterable<AppUser> appUsers = potLuckRepository.find
         model.addAttribute("newLosts", losts);

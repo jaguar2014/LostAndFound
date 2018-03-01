@@ -55,7 +55,7 @@
     <div class="container">
       <h1 class="masthead-heading mb-0">Welcome</h1>
       <h2 class="masthead-subheading mb-0">Thank You </h2>
-      <a href="/addlost" class="btn btn-primary btn-xl rounded-pill mt-5">Please click here to add lost items </a>
+      <a sec:authorize="isAuthenticated()" href="/addlost" class="btn btn-primary btn-xl rounded-pill mt-5">Please click here to add lost items </a>
     </div>
   </div>
   <div class="bg-circle-1 bg-circle"></div>
