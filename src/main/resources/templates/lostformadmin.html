@@ -26,6 +26,21 @@
 
 <body>
 
+<header class="masthead text-center text-white">
+    <div class="masthead-content">
+        <div class="container">
+            <h1 class="masthead-heading mb-0">Lost :( and Found :)</h1>
+            <!--<h2 class="masthead-subheading mb-0"></h2>-->
+            <a href="/" class="btn btn-primary btn-xl rounded-pill mt-5"> Back to your Main page</a>
+        </div>
+    </div>
+    <div class="bg-circle-1 bg-circle"></div>
+    <div class="bg-circle-2 bg-circle"></div>
+    <div class="bg-circle-3 bg-circle"></div>
+    <div class="bg-circle-4 bg-circle"></div>
+</header>
+
+
 <div class="container text-center">
 
     <form class="form-horizontal" th:action="@{/addlostadmin}" th:object="${lost}" method="post">
@@ -48,8 +63,17 @@
             </div>
         </div>
 
-   
-<div>
+
+        <div class="form-group">
+            <div class="col-sm-10">
+                <div  th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}" class="well alert alert-danger" role="alert"></div>
+
+                <input  th:field="*{imageUrl}"  name="item" placeholder="Enter Imagee Url" class="form-control"  type="url">
+            </div>
+        </div>
+
+
+        <div>
     <label for="cate"> Select Category</label>
 
         <select id="cate" th:field="*{category}" class="selectpicker">
@@ -57,10 +81,12 @@
 
             <option th:each="eachCat:${categories}" th:value="${eachCat.id}" th:text="${eachCat.name}" th:selected="*{category}"></option>
 
-        </select></div>
+        </select>
+</div>
 
 
-     <div>
+
+        <div>
          <label for="users">please select as who you want to post as</label>
 
          <select id="users" name="regusername" class="selectpicker">
@@ -70,6 +96,9 @@
 
         </select>
 </div>
+
+
+
 
 
 
