@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>One Page Wonder - Start Bootstrap Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/one-page-wonder.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container text-center">
+
+    <form class="form-horizontal" th:action="@{/addlost}" th:object="${lost}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <!-- Form Name -->
+        <legend align="Center">Start sharing!</legend>
+        <!-- Text input-->
+        <div class="form-group">
+            <div class="col-sm-10">
+                <div  th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="well alert alert-danger" role="alert"></div>
+
+                <input  th:field="*{title}"  name="item" placeholder="Enter a Title for lost Item" class="form-control"  type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10">
+                <div  th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="well alert alert-danger" role="alert"></div>
+
+                <input  th:field="*{description}"  name="item" placeholder="Enter description" class="form-control"  type="text">
+            </div>
+        </div>
+
+        <select id="category" name="category" class="selectpicker">
+
+            <option th:text="${category}" th:value="${post.category}"></option>
+
+        </select>
+
+        <!--<select id="skill" name="skill" class="selectpicker" multiple="multiple">-->
+            <!--<option th:each="skill: ${skills}" th:value="${skill.id}" th:text="${skill.skillName}"> skill.skillName</option>-->
+        <!--</select>-->
+
+        <!-- Button -->
+
+        <div class="form-group">
+            <div class="col-md-10">
+
+                <p><button type="submit" class="btn btn-primary">Submit</button>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
