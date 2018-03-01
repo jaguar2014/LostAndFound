@@ -86,9 +86,10 @@
             <p th:text="${user.firstName}">potluck.item</p>
       </span>
       </td>
+        <td sec:authorize="isAuthenticated()" th:text= "${lost.found}?'Found':'Not Yet Found'">Lost Status</td>
 
       <td sec:authorize="hasAuthority('ADMIN')">
-        <a th:href="@{/lost/{id}(id=${lost.id})}">Change to Found</a>
+        <a th:href="@{/lost/{id}(id=${lost.id})}" th:text= "${lost.found}?'Found':'Change to Found'"></a>
 
       </td>
 
