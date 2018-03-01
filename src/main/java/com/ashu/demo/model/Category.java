@@ -20,6 +20,10 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private Set<Lost> losts;
 
+    public void addLosts(Lost lost){
+        losts.add(lost);
+    }
+
     public Set<Lost> getLosts() {
         return losts;
     }

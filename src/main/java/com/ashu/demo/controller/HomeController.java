@@ -137,6 +137,19 @@ public class HomeController {
     }
 
 
+    @GetMapping("/default")
+    public String defaultAfterLogin(Authentication auth){
+        AppRole role = roleRepository.findByAppUsers(userRepository.findAppUserByUsername(auth.getName()));
+        String rolename = role.getRoleName();
+
+        if (rolename.equals("ADMIN")) {
+            return "redirect:/";
+        }
+        return "redirect:/listlost";
+
+    }
+
+
 
 }
 

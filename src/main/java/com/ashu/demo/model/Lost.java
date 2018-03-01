@@ -33,8 +33,8 @@ public class Lost {
     @NotEmpty
     private String description;
 
-   @ManyToOne
-  private Category category;
+    @ManyToOne
+    private Category category;
 
     @ManyToMany
     private List<AppUser> appUsers;

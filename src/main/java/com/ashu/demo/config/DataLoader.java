@@ -45,21 +45,12 @@ public class DataLoader implements CommandLineRunner {
         roleRepo.save(role);
 
 
-
-
         AppUser appUser = new AppUser();
 
         appUser.setUsername("Ashu");
         appUser.setPassword("pass");
         appUser.setFirstName("Ashenafi");
         appUser.addRole(roleRepo.findAppRoleByRoleName("USER"));
-        userRepository.save(appUser);
-
-       appUser= new AppUser();
-        appUser.setUsername("riri");
-        appUser.setFirstName("rekik");
-        appUser.setPassword("pass");
-        appUser.addRole(roleRepo.findAppRoleByRoleName("ADMIN"));
         userRepository.save(appUser);
 
 
@@ -71,27 +62,54 @@ public class DataLoader implements CommandLineRunner {
         category.setName("Pet");
         categoryRepository.save(category);
 
-
         lost.setCategory(category);
         lostRepository.save(lost);
+
+        category.addLosts(lost);
+        categoryRepository.save(category);
+        lost.addAppUser(appUser);
+        lostRepository.save(lost);
+
+        appUser= new AppUser();
+        appUser.setUsername("riri");
+        appUser.setFirstName("rekik");
+        appUser.setPassword("pass");
+        appUser.addRole(roleRepo.findAppRoleByRoleName("ADMIN"));
+        userRepository.save(appUser);
 
 
         lost = new Lost();
         lost.setTitle("Clothes lost");
         lost.setDescription("I lost my clothes");
 
+
         category = new Category();
         category.setName("Cloth");
+        //repeat below code for other items
         categoryRepository.save(category);
 
         lost.setCategory(category);
         lostRepository.save(lost);
 
+        category.addLosts(lost);
+        categoryRepository.save(category);
+        lost.addAppUser(appUser);
+        lostRepository.save(lost);
 
+
+
+
+        appUser= new AppUser();
+        appUser.setUsername("riri");
+        appUser.setFirstName("rekik");
+        appUser.setPassword("pass");
+        appUser.addRole(roleRepo.findAppRoleByRoleName("ADMIN"));
+        userRepository.save(appUser);
 
         lost = new Lost();
         lost.setTitle("other lost");
         lost.setDescription("I lost my other stuff");
+
 
         category = new Category();
         category.setName("Other");
@@ -101,6 +119,71 @@ public class DataLoader implements CommandLineRunner {
         lost.setCategory(category);
         lostRepository.save(lost);
 
+        category.addLosts(lost);
+        categoryRepository.save(category);
+        lost.addAppUser(appUser);
+        lostRepository.save(lost);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        appUser.addLost(lost);
+//        userRepository.save(appUser);
+
+
+//        appUser.addLost(lost);
+//        userRepository.save(appUser);
+
+
+//        appUser= new AppUser();
+//        appUser.setUsername("riri");
+//        appUser.setFirstName("rekik");
+//        appUser.setPassword("pass");
+//        appUser.addRole(roleRepo.findAppRoleByRoleName("ADMIN"));
+//        userRepository.save(appUser);
+//
+//
+//        lost = new Lost();
+//        lost.setTitle("Clothes lost");
+//        lost.setDescription("I lost my clothes");
+//
+//        category = new Category();
+//        category.setName("Cloth");
+//        categoryRepository.save(category);
+//
+//        lost.setCategory(category);
+//        lostRepository.save(lost);
+//        appUser.addLost(lost);
+//        userRepository.save(appUser);
+//
+//
+//
+//        lost = new Lost();
+//        lost.setTitle("other lost");
+//        lost.setDescription("I lost my other stuff");
+//
+//        category = new Category();
+//        category.setName("Other");
+//        categoryRepository.save(category);
+//
+//
+//        lost.setCategory(category);
+//        lostRepository.save(lost);
+//        appUser.addLost(lost);
+//        userRepository.save(appUser);
 
 
 

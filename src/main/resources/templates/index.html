@@ -75,7 +75,7 @@
     </tr>
     </thead>
     <tbody th:each="lost: ${newLosts}">
-    <tr  th:if="${lost.found}==false">
+    <tr>
 
       <!--<td><span sec:authentication="name">Bob</span></td>-->
       <td th:text="${lost.title}">potluck.item</td>
