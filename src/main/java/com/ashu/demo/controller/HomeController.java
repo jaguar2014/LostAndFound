@@ -115,27 +115,34 @@ public class HomeController {
     }
 
     @GetMapping("/addlostadmin")
-    private String addLostAdmin(Model model,Authentication auth) {
+    private String addLostAdmin(Model model) {
 
         Lost lost = new Lost();
         model.addAttribute("lost", lost);
         model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("registeredusers", userRepository.findAll());
 
 
         return "lostformadmin";
     }
 
     @PostMapping("/addlostadmin")
-    public String addLostInfoAdmin(@Valid @ModelAttribute("lost") Lost lost, Model model, BindingResult result, Authentication auth) {
+    public String addLostInfoAdmin(@Valid @ModelAttribute("lost") Lost lost, Model model, BindingResult result, @RequestParam("regusername") String username) {
         if (result.hasErrors()) {
             return "lostformadmin";
         }
-        AppUser appUser = userRepository.findAppUserByUsername(auth.getName());
+        AppUser appUser = userRepository.findAppUserByUsername(username);
         lost.addAppUser(appUser);
 
         lostRepository.save(lost);
 
 
+        AppRole role = roleRepository.findByAppUsers(userRepository.findAppUserByUsername(username));
+        String rolename = role.getRoleName();
+
+        if (rolename.equals("USER")) {
+            return "redirect:/";
+        }
         return "redirect:/listlost";
     }
 
