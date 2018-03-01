@@ -75,8 +75,23 @@ public class HomeController {
         return "redirect:/";
     }
 
+
     @GetMapping("/addlost")
-    private String addLost(Model model) {
+    public String addLostGeneral(Authentication auth){
+        AppRole role = roleRepository.findByAppUsers(userRepository.findAppUserByUsername(auth.getName()));
+        String rolename = role.getRoleName();
+
+        if(rolename.equals("ADMIN")){
+            return "redirect:/addlostadmin";
+        }
+        return "redirect:/addlostuser";
+
+
+    }
+
+    @GetMapping("/addlostuser")
+    private String addLost(Model model,Authentication auth) {
+
         Lost lost = new Lost();
         model.addAttribute("lost", lost);
         model.addAttribute("categories", categoryRepository.findAll());
@@ -85,10 +100,35 @@ public class HomeController {
         return "lostform";
     }
 
-    @PostMapping("/addlost")
+    @PostMapping("/addlostuser")
     public String addLostInfo(@Valid @ModelAttribute("lost") Lost lost, Model model, BindingResult result, Authentication auth) {
         if (result.hasErrors()) {
             return "lostform";
+        }
+        AppUser appUser = userRepository.findAppUserByUsername(auth.getName());
+        lost.addAppUser(appUser);
+
+        lostRepository.save(lost);
+
+
+        return "redirect:/listlost";
+    }
+
+    @GetMapping("/addlostadmin")
+    private String addLostAdmin(Model model,Authentication auth) {
+
+        Lost lost = new Lost();
+        model.addAttribute("lost", lost);
+        model.addAttribute("categories", categoryRepository.findAll());
+
+
+        return "lostformadmin";
+    }
+
+    @PostMapping("/addlostadmin")
+    public String addLostInfoAdmin(@Valid @ModelAttribute("lost") Lost lost, Model model, BindingResult result, Authentication auth) {
+        if (result.hasErrors()) {
+            return "lostformadmin";
         }
         AppUser appUser = userRepository.findAppUserByUsername(auth.getName());
         lost.addAppUser(appUser);
@@ -105,7 +145,7 @@ public class HomeController {
         AppUser appUser = userRepository.findAppUserByUsername(auth.getName());
 
         List<Lost> losts = lostRepository.findByAppUsers(appUser);
-        // List<PotLuck> potLucks  = potLuckRepository.findPotLucksByAppUsersIn(Arrays.asList(appUser));
+
         model.addAttribute("newLosts", losts);
         model.addAttribute("appUser", appUser);
         return "listlostform";
@@ -122,10 +162,6 @@ public class HomeController {
     }
 
 
-    @GetMapping("/adminPage")
-    public String adminPage() {
-        return "";
-    }
 
     @GetMapping("/lost/{id}")
     public String borrowBook(Model model, @PathVariable("id") String lostId) {
