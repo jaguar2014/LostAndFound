@@ -56,6 +56,7 @@ public class DataLoader implements CommandLineRunner {
 
         Lost lost = new Lost();
         lost.setTitle("pet lost");
+        lost.setImageUrl("");
         lost.setDescription("she is lost and lost");
 
         Category category = new Category();
@@ -79,6 +80,7 @@ public class DataLoader implements CommandLineRunner {
 
 
         lost = new Lost();
+        lost.setImageUrl("");
         lost.setTitle("Clothes lost");
         lost.setDescription("I lost my clothes");
 
@@ -101,7 +103,7 @@ public class DataLoader implements CommandLineRunner {
         lost = new Lost();
         lost.setTitle("other lost");
         lost.setDescription("I lost my other stuff");
-
+        lost.setImageUrl("");
 
         category = new Category();
         category.setName("Other");
