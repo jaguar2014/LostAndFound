@@ -196,6 +196,19 @@ public class HomeController {
 
     }
 
+    @PostMapping("/search")
+    public String search(Model model , HttpServletRequest request){
+
+        String srch = request.getParameter("srch-term");
+
+        model.addAttribute("newLosts", lostRepository.findByCategoryNameIgnoreCaseContaining(srch));
+
+
+
+
+        return "index";
+    }
+
 
 
 }

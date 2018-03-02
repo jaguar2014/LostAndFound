@@ -33,6 +33,8 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
 
+
+
                 <li class="nav-item">
                     <a class="nav-link" href="/">See what Others Post</a>
                 </li>
@@ -47,6 +49,16 @@
                     <a class="nav-link" href="/logout">Log Out</a>
                 </li>
             </ul>
+
+            <div class="col-sm-3 col-md-3 pull-right">
+                <form class="navbar-form" role="search" th:action="@{/search}" th:method="post">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                        <input type="submit" value="Search"></input>
+                    </div>
+                </form>
+            </div>
+
         </div>
     </div>
 </nav>
