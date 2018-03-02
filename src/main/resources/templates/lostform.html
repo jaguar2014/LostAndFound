@@ -50,14 +50,14 @@
         <!-- Text input-->
         <div class="form-group">
             <div class="col-sm-10">
-                <div  th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="well alert alert-danger" role="alert"></div>
+                <span  th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="well alert alert-danger" role="alert"></span>
 
                 <input  th:field="*{title}"  name="item" placeholder="Enter a Title for lost Item" class="form-control"  type="text">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-10">
-                <div  th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="well alert alert-danger" role="alert"></div>
+                <span  th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="well alert alert-danger" role="alert"></span>
 
                 <input  th:field="*{description}"  name="item" placeholder="Enter description" class="form-control"  type="text">
             </div>
@@ -65,7 +65,7 @@
 
         <div class="form-group">
             <div class="col-sm-10">
-                <div  th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}" class="well alert alert-danger" role="alert"></div>
+                <span  th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}" class="well alert alert-danger" role="alert"></span>
 
                 <input  th:field="*{imageUrl}"  name="item" placeholder="Enter Image Url" class="form-control"  type="url">
             </div>

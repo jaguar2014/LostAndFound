@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,14 +21,15 @@ public class AppUser {
     private long id;
 
    @NotEmpty
-   @NotNull
+   @Size(min=3)
     private String username;
 
     @NotEmpty
-    @NotNull
+    @Size(min=3)
     private String firstName;
 
     @NotEmpty
+    @Size(min=3)
     public String password;
 
     private String lastName;

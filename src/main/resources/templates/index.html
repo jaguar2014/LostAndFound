@@ -27,28 +27,6 @@
 <body>
 <nav th:replace="fragments/template::potnav"></nav>
 
-<!--&lt;!&ndash; Navigation &ndash;&gt;-->
-<!--<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">-->
-<!--<div class="container">-->
-<!--<a class="navbar-brand" href="#">Potluck</a>-->
-<!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--<span class="navbar-toggler-icon"></span>-->
-<!--</button>-->
-<!--<div class="collapse navbar-collapse" id="navbarResponsive">-->
-<!--<ul class="navbar-nav ml-auto">-->
-<!--<li class="nav-item">-->
-<!--<a class="nav-link" href="/register">Sign Up</a>-->
-<!--</li>-->
-<!--<li class="nav-item">-->
-<!--<a class="nav-link" href="/login">Log In</a>-->
-<!--</li>-->
-<!--<li class="nav-item">-->
-<!--<a class="nav-link" href="/logout">Log Out</a>-->
-<!--</li>-->
-<!--</ul>-->
-<!--</div>-->
-<!--</div>-->
-<!--</nav>-->
 
 <header class="masthead text-center text-white">
   <div class="masthead-content">
@@ -69,24 +47,30 @@
     <thead>
 
     <tr>
+      <th scope="col">Image</th>
       <th scope="col">Title</th>
       <th scope="col">Description</th>
       <th sec:authorize="isAuthenticated()" scope="col">First Name</th>
       <th sec:authorize="isAuthenticated()" scope="col">Status</th>
+      <th sec:authorize="isAuthenticated()" scope="col">Edit</th>
 
     </tr>
     </thead>
-    <tbody th:each="lost: ${newLosts}">
-    <tr>
+    <tbody >
+    <tr th:each="lost: ${newLosts}">
+      <td>   <img th:if="${lost.category.id eq 1  and lost.getImageUrl() =='' }" src="/img/pet.jpg">
+        <img th:if="${lost.category.id eq 2  and lost.getImageUrl() =='' }" src="/img/cloth.jpg">
+        <img th:if="${lost.category.id eq 3  and lost.getImageUrl() =='' }" src="/img/other.jpg">
+        <img th:src="${lost.imageUrl}" alt="">
+      </td>
 
       <!--<td><span sec:authentication="name">Bob</span></td>-->
       <td th:text="${lost.title}">potluck.item</td>
       <td th:text="${lost.description}">potluck.item</td>
-
       <td>
-      <span  sec:authorize="isAuthenticated()" th:each="user:${lost.appUsers}">
+      <th:block  sec:authorize="isAuthenticated()" th:each="user:${lost.appUsers}">
             <p th:text="${user.firstName}">potluck.item</p>
-      </span>
+      </th:block>
       </td>
         <td sec:authorize="isAuthenticated()" th:text= "${lost.found}?'Found':'Not Yet Found'">Lost Status</td>
 

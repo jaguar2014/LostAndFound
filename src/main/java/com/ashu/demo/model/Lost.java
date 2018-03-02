@@ -3,6 +3,7 @@ package com.ashu.demo.model;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +17,7 @@ public class Lost {
     private long id;
 
     @NotEmpty
+    @Size(min=3)
     private String title;
 
     private String imageUrl;
@@ -31,6 +33,7 @@ public class Lost {
     }
 
     @NotEmpty
+    @Size(min=3)
     private String description;
 
     @ManyToOne
