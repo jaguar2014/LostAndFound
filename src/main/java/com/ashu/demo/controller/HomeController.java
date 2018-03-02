@@ -41,6 +41,16 @@ public class HomeController {
 
         Iterable<Lost> losts = lostRepository.findAll();
 
+        Iterable<Lost> petCategory = lostRepository.findByCategoryNameIgnoreCase("Pet");
+        Iterable<Lost> clothCategory = lostRepository.findByCategoryNameIgnoreCase("Cloth");
+        Iterable<Lost> otherCategory = lostRepository.findByCategoryNameIgnoreCase("Other");
+
+
+        model.addAttribute("petCategory", petCategory);
+        model.addAttribute("clothCategory", clothCategory);
+        model.addAttribute("otherCategory", otherCategory);
+
+
 
         // Iterable<AppUser> appUsers = userRepository.findByPotLucksIn(losts);
         // Iterable<AppUser> appUsers = potLuckRepository.find
@@ -153,6 +163,16 @@ public class HomeController {
 
         List<Lost> losts = lostRepository.findByAppUsers(appUser);
 
+        Iterable<Lost> petCategory = lostRepository.findByCategoryNameIgnoreCaseAndAppUsers("Pet",appUser);
+        Iterable<Lost> clothCategory = lostRepository.findByCategoryNameIgnoreCaseAndAppUsers("Cloth",appUser);
+        Iterable<Lost> otherCategory = lostRepository.findByCategoryNameIgnoreCaseAndAppUsers("Other",appUser);
+
+
+        model.addAttribute("petCategory", petCategory);
+        model.addAttribute("clothCategory", clothCategory);
+        model.addAttribute("otherCategory", otherCategory);
+
+
         model.addAttribute("newLosts", losts);
         model.addAttribute("appUser", appUser);
         return "listlostform";
@@ -208,6 +228,8 @@ public class HomeController {
 
         return "index";
     }
+
+
 
 
 

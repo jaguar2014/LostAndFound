@@ -27,13 +27,13 @@
 <body>
 <nav th:replace="fragments/template::potnav"></nav>
 
-<div class="container">
+
 <header class="masthead text-center text-white">
     <div class="masthead-content">
         <div class="container">
             <h1 class="masthead-heading mb-0">Lost :( and Found :)</h1>
-            <!--<h2 class="masthead-subheading mb-0"></h2>-->
-            <a href="/addlost" class="btn btn-primary btn-xl rounded-pill mt-5"> Report lost items </a>
+            <!--<h2 class="masthead-subheading mb-0">Thank You </h2>-->
+            <a sec:authorize="isAuthenticated()" href="/addlost" class="btn btn-primary btn-xl rounded-pill mt-5">Please click here to add lost items </a>
         </div>
     </div>
     <div class="bg-circle-1 bg-circle"></div>
@@ -42,54 +42,405 @@
     <div class="bg-circle-4 bg-circle"></div>
 </header>
 
-<section>
+<!--table display without category pic-->
+<!--<section>-->
+<!--<table class="table table-striped">-->
+<!--<thead>-->
 
-    <table class="table table-striped">
-        <thead>
+<!--<tr>-->
+<!--<th scope="col">Image</th>-->
+<!--<th scope="col">Title</th>-->
+<!--<th scope="col">Description</th>-->
+<!--<th sec:authorize="isAuthenticated()" scope="col">First Name</th>-->
+<!--<th sec:authorize="isAuthenticated()" scope="col">Status</th>-->
+<!--<th sec:authorize="isAuthenticated()" scope="col">Change Status</th>-->
 
-        <tr>
-            <th scope="col">Image</th>
-            <th scope="col">Title</th>
-            <th scope="col">Description</th>
-            <th scope="col">FirstName</th>
-            <th scope="col">Status</th>
-            <th  scope="col">Edit</th>
+<!--<th sec:authorize="isAuthenticated()" scope="col">Edit</th>-->
 
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="lost: ${newLosts}">
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody >-->
+<!--<tr th:each="lost: ${newLosts}">-->
+<!--<td>   <img th:if="${lost.category.id eq 1  and lost.getImageUrl() =='' }" src="/img/pet.jpg">-->
+<!--<img th:if="${lost.category.id eq 2  and lost.getImageUrl() =='' }" src="/img/cloth.jpg">-->
+<!--<img th:if="${lost.category.id eq 3  and lost.getImageUrl() =='' }" src="/img/other.jpg">-->
+<!--<img th:src="${lost.imageUrl}" alt="">-->
+<!--</td>-->
 
-      <td>   <img th:if="${lost.category.id eq 1  and lost.getImageUrl() =='' }" src="/img/pet.jpg">
-           <img th:if="${lost.category.id eq 2  and lost.getImageUrl() =='' }" src="/img/cloth.jpg">
-           <img th:if="${lost.category.id eq 3  and lost.getImageUrl() =='' }" src="/img/other.jpg">
-          <img th:src="${lost.imageUrl}" alt="">
-      </td>
+<!--&lt;!&ndash;<td><span sec:authentication="name">Bob</span></td>&ndash;&gt;-->
+<!--<td th:text="${lost.title}">potluck.item</td>-->
+<!--<td th:text="${lost.description}">potluck.item</td>-->
+<!--<td>-->
+<!--<th:block  sec:authorize="isAuthenticated()" th:each="user:${lost.appUsers}">-->
+<!--<p th:text="${user.firstName}">potluck.item</p>-->
+<!--</th:block>-->
+<!--</td>-->
+<!--<td sec:authorize="isAuthenticated()" th:text= "${lost.found}?'Found':'Not Yet Found'">Lost Status</td>-->
 
-            <td th:text="${lost.title}">potluck.item</td>
-            <td th:text="${lost.description}">potluck.item</td>
+<!--<td sec:authorize="hasAuthority('ADMIN')">-->
+<!--<a th:href="@{/lost/{id}(id=${lost.id})}" th:text= "${lost.found}?'Found':'Change to Found'"></a>-->
 
-      <td>
-          <th:block th:each="user:${lost.appUsers}">
-              <th:block th:text="${user.firstName}">potluck.item</th:block>
-          </th:block>
-      </td>
-            <td sec:authorize="isAuthenticated()" th:text= "${lost.found}?'Found':'Not Yet Found'">Lost Status</td>
+<!--</td>-->
 
-           <td  sec:authorize="hasAuthority('ADMIN')">
-               <a th:href="@{/lost/{id}(id=${lost.id})}"  th:text= "${lost.found}?'Found':'Change to Found'">Change To Found</a>
+<!--&lt;!&ndash;<td th:text="">potluck.item</td>&ndash;&gt;-->
 
-           </td>
-            <!--<td th:text="">potluck.item</td>-->
-
-            <td> <a th:href="@{/editlost/{id}(id=${lost.id})}">Edit</a></td>
-
+<!--<td sec:authorize="isAuthenticated()"> <a th:href="@{/editlost/{id}(id=${lost.id})}">Edit</a></td>-->
 
 
-        </tr>
-        </tbody>
-    </table>
-</section>
+<!--</tr>-->
+
+
+<!--</tbody>-->
+<!--</table>-->
+<!--</section>-->
+
+<!--table display per category image-->
+<!--<div class="container">-->
+<!--<div class="row">-->
+<!--<div class="col-sm-4">-->
+<!--<img src="/img/pet.jpg" alt="">-->
+<!--<section>-->
+<!--<table class="table table-striped">-->
+<!--<thead>-->
+
+<!--<tr>-->
+<!--<th scope="col">Image</th>-->
+<!--<th scope="col">Title</th>-->
+<!--<th scope="col">Description</th>-->
+<!--<th sec:authorize="isAuthenticated()" scope="col">First Name</th>-->
+<!--<th sec:authorize="isAuthenticated()" scope="col">Status</th>-->
+<!--<th sec:authorize="isAuthenticated()" scope="col">Change Status</th>-->
+
+<!--<th sec:authorize="isAuthenticated()" scope="col">Edit</th>-->
+
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody >-->
+<!--<tr th:each="lost: ${petCategory}">-->
+<!--<td>   <img th:if="${lost.category.id eq 1  and lost.getImageUrl() =='' }" src="/img/pet.jpg">-->
+<!--<img th:if="${lost.category.id eq 2  and lost.getImageUrl() =='' }" src="/img/cloth.jpg">-->
+<!--<img th:if="${lost.category.id eq 3  and lost.getImageUrl() =='' }" src="/img/other.jpg">-->
+<!--<img th:src="${lost.imageUrl}" alt="">-->
+<!--</td>-->
+
+<!--&lt;!&ndash;<td><span sec:authentication="name">Bob</span></td>&ndash;&gt;-->
+<!--<td th:text="${lost.title}">potluck.item</td>-->
+<!--<td th:text="${lost.description}">potluck.item</td>-->
+<!--<td>-->
+<!--<th:block  sec:authorize="isAuthenticated()" th:each="user:${lost.appUsers}">-->
+<!--<p th:text="${user.firstName}">potluck.item</p>-->
+<!--</th:block>-->
+<!--</td>-->
+<!--<td sec:authorize="isAuthenticated()" th:text= "${lost.found}?'Found':'Not Yet Found'">Lost Status</td>-->
+
+<!--<td sec:authorize="hasAuthority('ADMIN')">-->
+<!--<a th:href="@{/lost/{id}(id=${lost.id})}" th:text= "${lost.found}?'Found':'Change to Found'"></a>-->
+
+<!--</td>-->
+
+<!--&lt;!&ndash;<td th:text="">potluck.item</td>&ndash;&gt;-->
+
+<!--<td sec:authorize="isAuthenticated()"> <a th:href="@{/editlost/{id}(id=${lost.id})}">Edit</a></td>-->
+
+
+<!--</tr>-->
+
+
+<!--</tbody>-->
+<!--</table>-->
+<!--</section>-->
+
+<!--</div>-->
+<!--<div class="col-sm-4">-->
+<!--<img src="/img/cloth.jpg" alt="">-->
+
+<!--<section>-->
+<!--<table class="table table-striped">-->
+<!--<thead>-->
+
+<!--<tr>-->
+<!--<th scope="col">Image</th>-->
+<!--<th scope="col">Title</th>-->
+<!--<th scope="col">Description</th>-->
+<!--<th sec:authorize="isAuthenticated()" scope="col">First Name</th>-->
+<!--<th sec:authorize="isAuthenticated()" scope="col">Status</th>-->
+<!--<th sec:authorize="isAuthenticated()" scope="col">Change Status</th>-->
+
+<!--<th sec:authorize="isAuthenticated()" scope="col">Edit</th>-->
+
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody >-->
+<!--<tr th:each="lost: ${clothCategory}">-->
+<!--<td>   <img th:if="${lost.category.id eq 1  and lost.getImageUrl() =='' }" src="/img/pet.jpg">-->
+<!--<img th:if="${lost.category.id eq 2  and lost.getImageUrl() =='' }" src="/img/cloth.jpg">-->
+<!--<img th:if="${lost.category.id eq 3  and lost.getImageUrl() =='' }" src="/img/other.jpg">-->
+<!--<img th:src="${lost.imageUrl}" alt="">-->
+<!--</td>-->
+
+<!--&lt;!&ndash;<td><span sec:authentication="name">Bob</span></td>&ndash;&gt;-->
+<!--<td th:text="${lost.title}">potluck.item</td>-->
+<!--<td th:text="${lost.description}">potluck.item</td>-->
+<!--<td>-->
+<!--<th:block  sec:authorize="isAuthenticated()" th:each="user:${lost.appUsers}">-->
+<!--<p th:text="${user.firstName}">potluck.item</p>-->
+<!--</th:block>-->
+<!--</td>-->
+<!--<td sec:authorize="isAuthenticated()" th:text= "${lost.found}?'Found':'Not Yet Found'">Lost Status</td>-->
+
+<!--<td sec:authorize="hasAuthority('ADMIN')">-->
+<!--<a th:href="@{/lost/{id}(id=${lost.id})}" th:text= "${lost.found}?'Found':'Change to Found'"></a>-->
+
+<!--</td>-->
+
+<!--&lt;!&ndash;<td th:text="">potluck.item</td>&ndash;&gt;-->
+
+<!--<td sec:authorize="isAuthenticated()"> <a th:href="@{/editlost/{id}(id=${lost.id})}">Edit</a></td>-->
+
+
+<!--</tr>-->
+
+
+<!--</tbody>-->
+<!--</table>-->
+<!--</section>-->
+
+<!--</div>-->
+<!--<div class="col-sm-4">-->
+<!--<img src="/img/other.jpg" alt="">-->
+
+<!--<section>-->
+<!--<table class="table table-striped">-->
+<!--<thead>-->
+
+<!--<tr>-->
+<!--<th scope="col">Image</th>-->
+<!--<th scope="col">Title</th>-->
+<!--<th scope="col">Description</th>-->
+<!--<th sec:authorize="isAuthenticated()" scope="col">First Name</th>-->
+<!--<th sec:authorize="isAuthenticated()" scope="col">Status</th>-->
+<!--<th sec:authorize="isAuthenticated()" scope="col">Change Status</th>-->
+
+<!--<th sec:authorize="isAuthenticated()" scope="col">Edit</th>-->
+
+<!--</tr>-->
+<!--</thead>-->
+<!--<tbody >-->
+<!--<tr th:each="lost: ${otherCategory}">-->
+<!--<td>   <img th:if="${lost.category.id eq 1  and lost.getImageUrl() =='' }" src="/img/pet.jpg">-->
+<!--<img th:if="${lost.category.id eq 2  and lost.getImageUrl() =='' }" src="/img/cloth.jpg">-->
+<!--<img th:if="${lost.category.id eq 3  and lost.getImageUrl() =='' }" src="/img/other.jpg">-->
+<!--<img th:src="${lost.imageUrl}" alt="">-->
+<!--</td>-->
+
+<!--&lt;!&ndash;<td><span sec:authentication="name">Bob</span></td>&ndash;&gt;-->
+<!--<td th:text="${lost.title}">potluck.item</td>-->
+<!--<td th:text="${lost.description}">potluck.item</td>-->
+<!--<td>-->
+<!--<th:block  sec:authorize="isAuthenticated()" th:each="user:${lost.appUsers}">-->
+<!--<p th:text="${user.firstName}">potluck.item</p>-->
+<!--</th:block>-->
+<!--</td>-->
+<!--<td sec:authorize="isAuthenticated()" th:text= "${lost.found}?'Found':'Not Yet Found'">Lost Status</td>-->
+
+<!--<td sec:authorize="hasAuthority('ADMIN')">-->
+<!--<a th:href="@{/lost/{id}(id=${lost.id})}" th:text= "${lost.found}?'Found':'Change to Found'"></a>-->
+
+<!--</td>-->
+
+<!--&lt;!&ndash;<td th:text="">potluck.item</td>&ndash;&gt;-->
+
+<!--<td sec:authorize="isAuthenticated()"> <a th:href="@{/editlost/{id}(id=${lost.id})}">Edit</a></td>-->
+
+
+<!--</tr>-->
+
+
+<!--</tbody>-->
+<!--</table>-->
+<!--</section>-->
+
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6"><img src="/img/petCat.jpg" alt=""></div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12"> <section>
+            <table class="table table-striped">
+                <thead>
+
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th sec:authorize="isAuthenticated()" scope="col">First Name</th>
+                    <th sec:authorize="isAuthenticated()" scope="col">Status</th>
+                    <th sec:authorize="isAuthenticated()" scope="col">Change Status</th>
+
+                    <th sec:authorize="isAuthenticated()" scope="col">Edit</th>
+
+                </tr>
+                </thead>
+                <tbody >
+                <tr th:each="lost: ${petCategory}">
+                    <td>   <img th:if="${lost.category.id eq 1  and lost.getImageUrl() =='' }" src="/img/pet.jpg">
+                        <img th:if="${lost.category.id eq 2  and lost.getImageUrl() =='' }" src="/img/cloth.jpg">
+                        <img th:if="${lost.category.id eq 3  and lost.getImageUrl() =='' }" src="/img/other.jpg">
+                        <img th:src="${lost.imageUrl}" alt="">
+                    </td>
+
+                    <!--<td><span sec:authentication="name">Bob</span></td>-->
+                    <td th:text="${lost.title}">potluck.item</td>
+                    <td th:text="${lost.description}">potluck.item</td>
+                    <td>
+                        <th:block  sec:authorize="isAuthenticated()" th:each="user:${lost.appUsers}">
+                            <p th:text="${user.firstName}">potluck.item</p>
+                        </th:block>
+                    </td>
+                    <td sec:authorize="isAuthenticated()" th:text= "${lost.found}?'Found':'Not Yet Found'">Lost Status</td>
+
+                    <td sec:authorize="hasAuthority('ADMIN')">
+                        <a th:href="@{/lost/{id}(id=${lost.id})}" th:text= "${lost.found}?'Found':'Change to Found'"></a>
+
+                    </td>
+
+                    <!--<td th:text="">potluck.item</td>-->
+
+                    <td sec:authorize="isAuthenticated()"> <a th:href="@{/editlost/{id}(id=${lost.id})}">Edit</a></td>
+
+
+                </tr>
+
+
+                </tbody>
+            </table>
+        </section></div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6"> <img src="/img/clothCat.jpg" alt=""></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">    <section>
+            <table class="table table-striped">
+                <thead>
+
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th sec:authorize="isAuthenticated()" scope="col">First Name</th>
+                    <th sec:authorize="isAuthenticated()" scope="col">Status</th>
+                    <th sec:authorize="isAuthenticated()" scope="col">Change Status</th>
+
+                    <th sec:authorize="isAuthenticated()" scope="col">Edit</th>
+
+                </tr>
+                </thead>
+                <tbody >
+                <tr th:each="lost: ${clothCategory}">
+                    <td>   <img th:if="${lost.category.id eq 1  and lost.getImageUrl() =='' }" src="/img/pet.jpg">
+                        <img th:if="${lost.category.id eq 2  and lost.getImageUrl() =='' }" src="/img/cloth.jpg">
+                        <img th:if="${lost.category.id eq 3  and lost.getImageUrl() =='' }" src="/img/other.jpg">
+                        <img th:src="${lost.imageUrl}" alt="">
+                    </td>
+
+                    <!--<td><span sec:authentication="name">Bob</span></td>-->
+                    <td th:text="${lost.title}">potluck.item</td>
+                    <td th:text="${lost.description}">potluck.item</td>
+                    <td>
+                        <th:block  sec:authorize="isAuthenticated()" th:each="user:${lost.appUsers}">
+                            <p th:text="${user.firstName}">potluck.item</p>
+                        </th:block>
+                    </td>
+                    <td sec:authorize="isAuthenticated()" th:text= "${lost.found}?'Found':'Not Yet Found'">Lost Status</td>
+
+                    <td sec:authorize="hasAuthority('ADMIN')">
+                        <a th:href="@{/lost/{id}(id=${lost.id})}" th:text= "${lost.found}?'Found':'Change to Found'"></a>
+
+                    </td>
+
+                    <!--<td th:text="">potluck.item</td>-->
+
+                    <td sec:authorize="isAuthenticated()"> <a th:href="@{/editlost/{id}(id=${lost.id})}">Edit</a></td>
+
+
+                </tr>
+
+
+                </tbody>
+            </table>
+        </section></div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-sm-6"> <img src="/img/otherCat.jpg" alt=""></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">    <section>
+            <table class="table table-striped">
+                <thead>
+
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th sec:authorize="isAuthenticated()" scope="col">First Name</th>
+                    <th sec:authorize="isAuthenticated()" scope="col">Status</th>
+                    <th sec:authorize="isAuthenticated()" scope="col">Change Status</th>
+
+                    <th sec:authorize="isAuthenticated()" scope="col">Edit</th>
+
+                </tr>
+                </thead>
+                <tbody >
+                <tr th:each="lost: ${otherCategory}">
+                    <td>   <img th:if="${lost.category.id eq 1  and lost.getImageUrl() =='' }" src="/img/pet.jpg">
+                        <img th:if="${lost.category.id eq 2  and lost.getImageUrl() =='' }" src="/img/cloth.jpg">
+                        <img th:if="${lost.category.id eq 3  and lost.getImageUrl() =='' }" src="/img/other.jpg">
+                        <img th:src="${lost.imageUrl}" alt="">
+                    </td>
+
+                    <!--<td><span sec:authentication="name">Bob</span></td>-->
+                    <td th:text="${lost.title}">potluck.item</td>
+                    <td th:text="${lost.description}">potluck.item</td>
+                    <td>
+                        <th:block  sec:authorize="isAuthenticated()" th:each="user:${lost.appUsers}">
+                            <p th:text="${user.firstName}">potluck.item</p>
+                        </th:block>
+                    </td>
+                    <td sec:authorize="isAuthenticated()" th:text= "${lost.found}?'Found':'Not Yet Found'">Lost Status</td>
+
+                    <td sec:authorize="hasAuthority('ADMIN')">
+                        <a th:href="@{/lost/{id}(id=${lost.id})}" th:text= "${lost.found}?'Found':'Change to Found'"></a>
+
+                    </td>
+
+                    <!--<td th:text="">potluck.item</td>-->
+
+                    <td sec:authorize="isAuthenticated()"> <a th:href="@{/editlost/{id}(id=${lost.id})}">Edit</a></td>
+
+
+                </tr>
+
+
+                </tbody>
+            </table>
+        </section></div>
+    </div>
+
+
+</div>
+
 
 <section>
     <div class="container">
@@ -109,6 +460,7 @@
     </div>
 </section>
 
+
 <!-- Footer -->
 <footer class="py-5 bg-black">
     <div class="container">
@@ -120,7 +472,7 @@
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-</div>
+
 </body>
 
 </html>

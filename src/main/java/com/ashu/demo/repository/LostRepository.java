@@ -15,4 +15,8 @@ public interface LostRepository extends CrudRepository<Lost, Long> {
     Iterable<Lost>findByFoundFalse();
 
     Iterable<Lost> findByCategoryNameIgnoreCaseContaining(String category);
+
+    Iterable<Lost> findByCategoryNameIgnoreCase(String category);
+
+    Iterable<Lost> findByCategoryNameIgnoreCaseAndAppUsers(String category, AppUser appUser);
 }
