@@ -290,7 +290,9 @@
                 </thead>
                 <tbody >
                 <tr th:each="lost: ${petCategory}">
-                    <td>   <img th:if="${lost.category.id eq 1  and lost.getImageUrl() =='' }" src="/img/pet.jpg">
+                  <th:block th:if="${lost.category.id eq 1}">
+
+                      <td>   <img th:if="${lost.category.id eq 1  and lost.getImageUrl() =='' }" src="/img/pet.jpg">
                         <img th:if="${lost.category.id eq 2  and lost.getImageUrl() =='' }" src="/img/cloth.jpg">
                         <img th:if="${lost.category.id eq 3  and lost.getImageUrl() =='' }" src="/img/other.jpg">
                         <img th:src="${lost.imageUrl}" alt="">
@@ -314,7 +316,7 @@
                     <!--<td th:text="">potluck.item</td>-->
 
                     <td sec:authorize="isAuthenticated()"> <a th:href="@{/editlost/{id}(id=${lost.id})}">Edit</a></td>
-
+</th:block>
 
                 </tr>
 
@@ -346,7 +348,7 @@
                 </thead>
                 <tbody >
                 <tr th:each="lost: ${clothCategory}">
-                    <td>   <img th:if="${lost.category.id eq 1  and lost.getImageUrl() =='' }" src="/img/pet.jpg">
+                    <th:block th:if="${lost.category.id eq 2}"><td>   <img th:if="${lost.category.id eq 1  and lost.getImageUrl() =='' }" src="/img/pet.jpg">
                         <img th:if="${lost.category.id eq 2  and lost.getImageUrl() =='' }" src="/img/cloth.jpg">
                         <img th:if="${lost.category.id eq 3  and lost.getImageUrl() =='' }" src="/img/other.jpg">
                         <img th:src="${lost.imageUrl}" alt="">
@@ -370,7 +372,7 @@
                     <!--<td th:text="">potluck.item</td>-->
 
                     <td sec:authorize="isAuthenticated()"> <a th:href="@{/editlost/{id}(id=${lost.id})}">Edit</a></td>
-
+</th:block>
 
                 </tr>
 
@@ -404,7 +406,8 @@
                 </thead>
                 <tbody >
                 <tr th:each="lost: ${otherCategory}">
-                    <td>   <img th:if="${lost.category.id eq 1  and lost.getImageUrl() =='' }" src="/img/pet.jpg">
+
+                   <th:block th:if="${lost.category.id eq 3}"> <td>   <img th:if="${lost.category.id eq 1  and lost.getImageUrl() =='' }" src="/img/pet.jpg">
                         <img th:if="${lost.category.id eq 2  and lost.getImageUrl() =='' }" src="/img/cloth.jpg">
                         <img th:if="${lost.category.id eq 3  and lost.getImageUrl() =='' }" src="/img/other.jpg">
                         <img th:src="${lost.imageUrl}" alt="">
@@ -428,7 +431,7 @@
                     <!--<td th:text="">potluck.item</td>-->
 
                     <td sec:authorize="isAuthenticated()"> <a th:href="@{/editlost/{id}(id=${lost.id})}">Edit</a></td>
-
+</th:block>
 
                 </tr>
 

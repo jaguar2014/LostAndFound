@@ -221,7 +221,18 @@ public class HomeController {
 
         String srch = request.getParameter("srch-term");
 
-        model.addAttribute("newLosts", lostRepository.findByCategoryNameIgnoreCaseContaining(srch));
+
+        Iterable<Lost> petCategory = lostRepository.findByCategoryNameIgnoreCaseContaining(srch);
+        Iterable<Lost> clothCategory = lostRepository.findByCategoryNameIgnoreCaseContaining(srch);
+        Iterable<Lost> otherCategory = lostRepository.findByCategoryNameIgnoreCaseContaining(srch);
+
+
+        model.addAttribute("petCategory", petCategory);
+        model.addAttribute("clothCategory", clothCategory);
+        model.addAttribute("otherCategory", otherCategory);
+
+
+     //   model.addAttribute("newLosts", lostRepository.findByCategoryNameIgnoreCaseContaining(srch));
 
 
 
