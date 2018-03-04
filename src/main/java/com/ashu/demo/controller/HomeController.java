@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.io.PrintStream;
-import java.security.Principal;
 import java.util.List;
 
 
@@ -193,10 +191,11 @@ public class HomeController {
 
 
     @GetMapping("/lost/{id}")
-    public String borrowBook(Model model, @PathVariable("id") String lostId) {
+    public String changeLostStatus(Model model, @PathVariable("id") String lostId) {
 
         Lost lost = lostRepository.findOne(new Long(lostId));
-        lost.setFound(true);
+
+        lost.setFound(!lost.isFound());
         lostRepository.save(lost);
 
 
