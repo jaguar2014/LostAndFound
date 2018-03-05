@@ -8,12 +8,15 @@ import com.ashu.demo.repository.AppUserRepository;
 import com.ashu.demo.repository.CategoryRepository;
 import com.ashu.demo.repository.LostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
@@ -33,6 +36,9 @@ public class HomeController {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    @Autowired
+    private JavaMailSender sender;
 
     @GetMapping("/")
     public String showIndex(Model model, Authentication auth) {
@@ -89,10 +95,20 @@ public class HomeController {
         AppRole role = roleRepository.findByAppUsers(userRepository.findAppUserByUsername(auth.getName()));
         String rolename = role.getRoleName();
 
-        if(rolename.equals("ADMIN")){
-            return "redirect:/addlostadmin";
+        try {
+            sendEmail("sendashuemail@gmail.com","An Item is reported lost ", "Please check your dashboard ,an Item is reposted lost");
+            System.out.println("Email Sent!");
+
+            if(rolename.equals("ADMIN")){
+                return "redirect:/addlostadmin";
+            }else {
+                return "redirect:/addlostuser";
+            }
+        }catch(Exception ex) {
+            return "Error in sending email: "+ex;
         }
-        return "redirect:/addlostuser";
+
+
 
 
     }
@@ -117,6 +133,7 @@ public class HomeController {
         lost.addAppUser(appUser);
 
         lostRepository.save(lost);
+
 
 
         return "redirect:/listlost";
@@ -191,11 +208,13 @@ public class HomeController {
 
 
     @GetMapping("/lost/{id}")
-    public String changeLostStatus(Model model, @PathVariable("id") String lostId) {
+    public String changeLostStatus(Model model, @PathVariable("id") String lostId,Authentication auth) {
+
 
         Lost lost = lostRepository.findOne(new Long(lostId));
 
         lost.setFound(!lost.isFound());
+
         lostRepository.save(lost);
 
 
@@ -246,6 +265,18 @@ public class HomeController {
 
 
         return "index";
+    }
+
+
+    private void sendEmail(String email, String subject , String text) throws Exception{
+        MimeMessage message = sender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setTo(email);
+        helper.setText(text);
+        helper.setSubject(subject);
+
+        sender.send(message);
     }
 
 
