@@ -47,7 +47,7 @@ public class DataLoader implements CommandLineRunner {
 
         AppUser appUser = new AppUser();
 
-        appUser.setUsername("Ashu");
+        appUser.setUsername("User");
         appUser.setPassword("pass");
         appUser.setFirstName("Ashenafi");
         appUser.addRole(roleRepo.findAppRoleByRoleName("USER"));
@@ -72,7 +72,7 @@ public class DataLoader implements CommandLineRunner {
         lostRepository.save(lost);
 
         appUser= new AppUser();
-        appUser.setUsername("riri");
+        appUser.setUsername("Admin");
         appUser.setFirstName("rekik");
         appUser.setPassword("pass");
         appUser.addRole(roleRepo.findAppRoleByRoleName("ADMIN"));
