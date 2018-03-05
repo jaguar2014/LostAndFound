@@ -239,7 +239,7 @@ public class HomeController {
         if(lost.isFound()==true){
 
             try {
-                sendEmail("sendashuemail@gmail.com","hey  "+ username+ "An Item you reported lost was found ", "A lost Item with title   "+ lost.getTitle() + "  you reported missing is found");
+                sendEmail("sendashuemail@gmail.com","hey "+ appUser.getFirstName() + " An Item you reported lost was found ", appUser.getFirstName()+"  A lost Item with title  "+ lost.getTitle() + "  you reported missing is found");
                 System.out.println("Email Sent!");
 
 

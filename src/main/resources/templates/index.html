@@ -285,7 +285,7 @@
           <th sec:authorize="isAuthenticated()" scope="col">Change Status</th>
 
           <th sec:authorize="isAuthenticated()" scope="col">Edit</th>
-          <th sec:authorize="hasAuthority('ADMIN')" scope="col">Send Email</th>
+
 
         </tr>
         </thead>
@@ -306,11 +306,11 @@
               <th:block  sec:authorize="isAuthenticated()" th:each="user:${lost.appUsers}">
                 <p th:text="${user.firstName}"></p>
 
-                <form th:action="@{/sendemail}" th:method="post">
+                <form sec:authorize="hasAuthority('ADMIN')"  th:action="@{/sendemail}" th:method="post">
 
                   <input type="hidden" th:name ="usernameforemail" th:value="${user.username}">
 
-                  <input type="submit" value="SendEmailToUser">
+                  <input type="submit" value="SendEmail If Item IsFound">
                 </form>
 
 
@@ -378,6 +378,12 @@
             <td>
               <th:block  sec:authorize="isAuthenticated()" th:each="user:${lost.appUsers}">
                 <p th:text="${user.firstName}"></p>
+                <form sec:authorize="hasAuthority('ADMIN')"  th:action="@{/sendemail}" th:method="post">
+
+                  <input type="hidden" th:name ="usernameforemail" th:value="${user.username}">
+
+                  <input type="submit" value="SendEmail If Item IsFound">
+                </form>
               </th:block>
             </td>
             <td sec:authorize="isAuthenticated()" th:text= "${lost.found}?'Found':'Not Yet Found'">Lost Status</td>
@@ -438,6 +444,13 @@
             <td>
               <th:block  sec:authorize="isAuthenticated()" th:each="user:${lost.appUsers}">
                 <p th:text="${user.firstName}"></p>
+
+                <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/sendemail}" th:method="post">
+
+                  <input type="hidden" th:name ="usernameforemail" th:value="${user.username}">
+
+                  <input type="submit" value="SendEmail If Item IsFound">
+                </form>
               </th:block>
             </td>
             <td sec:authorize="isAuthenticated()" th:text= "${lost.found}?'Found':'Not Yet Found'">Lost Status</td>
