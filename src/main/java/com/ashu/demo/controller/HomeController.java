@@ -140,7 +140,7 @@ public class HomeController {
     }
 
     @GetMapping("/addlostadmin")
-    private String addLostAdmin(Model model) {
+    private String addLostAdmin(Model model,Authentication auth) {
 
         Lost lost = new Lost();
         model.addAttribute("lost", lost);
@@ -152,10 +152,16 @@ public class HomeController {
     }
 
     @PostMapping("/addlostadmin")
-    public String addLostInfoAdmin(@Valid @ModelAttribute("lost") Lost lost, Model model, BindingResult result, @RequestParam("regusername") String username) {
+    public String addLostInfoAdmin(@Valid @ModelAttribute("lost") Lost lost, Model model, BindingResult result, @RequestParam("regusername") String username, @RequestParam("anonuser")String anonuser) {
         if (result.hasErrors()) {
             return "lostformadmin";
         }
+
+        if(anonuser.equals("anon")){
+            lostRepository.save(lost);
+            return "redirect:/";
+        }
+
         AppUser appUser = userRepository.findAppUserByUsername(username);
         lost.addAppUser(appUser);
 

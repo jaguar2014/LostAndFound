@@ -17,7 +17,7 @@ public class Lost {
     private long id;
 
     @NotEmpty
-    @Size(min=3)
+    @Size(min=1)
     private String title;
 
     private String imageUrl;
@@ -33,7 +33,7 @@ public class Lost {
     }
 
     @NotEmpty
-    @Size(min=3)
+    @Size(min=1)
     private String description;
 
     @ManyToOne

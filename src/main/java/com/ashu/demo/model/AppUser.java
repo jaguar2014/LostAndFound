@@ -21,15 +21,15 @@ public class AppUser {
     private long id;
 
    @NotEmpty
-   @Size(min=3)
+   @Size(min=1)
     private String username;
 
     @NotEmpty
-    @Size(min=3)
+    @Size(min=1)
     private String firstName;
 
     @NotEmpty
-    @Size(min=3)
+    @Size(min=1)
     public String password;
 
     private String lastName;

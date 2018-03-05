@@ -28,8 +28,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/","/register","/css/**","/vendor/**","/js/**","/img/**","/search","/h2-console/**").permitAll()
-                 .antMatchers("/addlostadmin","/lost/**","/sendemail").hasAuthority("ADMIN")
-                .antMatchers("/addlost","/listlost","/lost/**").hasAnyAuthority("USER" ,"ADMIN")
+                 .antMatchers("/addlostadmin/**","/lost/**","/sendemail").hasAuthority("ADMIN")
+                .antMatchers("/addlost","/listlost","/lost/**","/addlostadmin/**","/addlostuser/**").hasAnyAuthority("USER" ,"ADMIN")
 
                 .anyRequest().authenticated()
                 .and()

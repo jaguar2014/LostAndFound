@@ -94,7 +94,10 @@
 
             <option th:each="user :${registeredusers}" th:value="${user.username}" th:text="${user.username}" selected="selected"></option>
 
+
         </select>
+            Click here to post as Anonymous user
+            <span><input type="radio" th:name="anonuser" value="anon"></span>
 </div>
 
 
