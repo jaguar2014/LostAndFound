@@ -239,7 +239,7 @@ public class HomeController {
         if(lost.isFound()==true){
 
             try {
-                sendEmail("sendashuemail@gmail.com","hey "+ appUser.getFirstName() + " An Item you reported lost was found ", appUser.getFirstName()+"  A lost Item with title  "+ lost.getTitle() + "  you reported missing is found");
+                sendEmail("sendashuemail@gmail.com","hey "+ appUser.getFirstName() + " An Item you reported lost was found ", "<b>"+ appUser.getFirstName()+"</b>  A lost Item with title  <b>"+ lost.getTitle() + "</b>  you reported missing is found");
                 System.out.println("Email Sent!");
 
 
@@ -325,7 +325,7 @@ public class HomeController {
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
         helper.setTo(email);
-        helper.setText(text);
+        helper.setText(text,true);
         helper.setSubject(subject);
 
         sender.send(message);
