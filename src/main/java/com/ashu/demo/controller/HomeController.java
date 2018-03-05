@@ -96,7 +96,7 @@ public class HomeController {
         String rolename = role.getRoleName();
 
         try {
-            sendEmail("sendashuemail@gmail.com","An Item is reported lost ", "Please check your dashboard ,an Item is reposted lost");
+            sendEmail("ashuspringboot@gmail.com","An Item is reported lost ", "Please check your dashboard ,an Item is reposted lost");
             System.out.println("Email Sent!");
 
             if(rolename.equals("ADMIN")){
@@ -239,7 +239,7 @@ public class HomeController {
         if(lost.isFound()==true){
 
             try {
-                sendEmail("sendashuemail@gmail.com","hey "+ appUser.getFirstName() + " An Item you reported lost was found ", "<b>"+ appUser.getFirstName()+"</b>  A lost Item with title  <b>"+ lost.getTitle() + "</b>  you reported missing is found");
+                sendEmail("ashuspringboot@gmail.com","hey "+ appUser.getFirstName() + " An Item you reported lost was found ", "<b>"+ appUser.getFirstName()+"</b>  A lost Item with title  <b>"+ lost.getTitle() + "</b>  you reported missing is found");
                 System.out.println("Email Sent!");
 
 
