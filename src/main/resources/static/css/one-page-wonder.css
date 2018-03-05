@@ -77,7 +77,17 @@ header.masthead .bg-circle {
   z-index: 0;
   position: absolute;
   border-radius: 100%;
-  background: linear-gradient(0deg, #ee0979 0%, #ff6a00 100%);
+
+  background-image: linear-gradient(0deg, rgb(9, 127, 238) 0px, rgb(0, 51, 255) 100%);
+  background-position-x: initial;
+  background-position-y: initial;
+  background-size: initial;
+  background-repeat-x: initial;
+  background-repeat-y: initial;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: initial;
 }
 
 header.masthead .bg-circle-1 {
