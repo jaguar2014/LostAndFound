@@ -300,6 +300,26 @@ public class HomeController {
     }
 
 
+    @GetMapping("/found")
+    public String foundItems(Model model,Authentication auth){
+
+        AppRole role = roleRepository.findByAppUsers(userRepository.findAppUserByUsername(auth.getName()));
+        String rolename = role.getRoleName();
+
+
+        if(rolename.equals("ADMIN")){
+            model.addAttribute("foundItems",lostRepository.findByFoundTrue());
+            return "foundlistform";
+        }
+
+        AppUser appUser = userRepository.findAppUserByUsername(auth.getName());
+
+        model.addAttribute("foundItems",lostRepository.findByFoundTrueAndAppUsers(appUser));
+
+        return "foundlistform";
+
+    }
+
     private void sendEmail(String email, String subject , String text) throws Exception{
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -310,6 +330,8 @@ public class HomeController {
 
         sender.send(message);
     }
+
+
 
 
 

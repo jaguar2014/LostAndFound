@@ -13,7 +13,7 @@ public interface LostRepository extends CrudRepository<Lost, Long> {
 
     List<Lost> findByAppUsers(AppUser appUser);
 
-    Iterable<Lost> findByFoundTrue();
+    Iterable<Lost> findByFoundTrueAndAppUsers(AppUser appUser);
 
     Iterable<Lost> findByFoundFalse();
 
@@ -24,7 +24,5 @@ public interface LostRepository extends CrudRepository<Lost, Long> {
     List<Lost> findByCategoryNameIgnoreCaseAndAppUsers(String category, AppUser appUser);
 
 
-
-
-
+    List<Lost> findByFoundTrue();
 }

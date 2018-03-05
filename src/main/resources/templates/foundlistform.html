@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>One Page Wonder - Start Bootstrap Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/one-page-wonder.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+<nav th:replace="fragments/template::potnav"></nav>
+
+
+<section>
+<table class="table table-striped">
+<thead>
+
+<tr>
+<th scope="col">Image</th>
+<th scope="col">Title</th>
+<th scope="col">Description</th>
+<th sec:authorize="isAuthenticated()" scope="col">First Name</th>
+<th sec:authorize="isAuthenticated()" scope="col">Status</th>
+<th sec:authorize="hasAuthority('ADMIN')" scope="col">Change Status</th>
+
+<th sec:authorize="isAuthenticated()" scope="col">Edit</th>
+
+</tr>
+</thead>
+<tbody >
+<tr th:each="lost: ${foundItems}">
+<td>   <img th:if="${lost.category.id eq 1  and lost.getImageUrl() =='' }" src="/img/pet.jpg">
+<img th:if="${lost.category.id eq 2  and lost.getImageUrl() =='' }" src="/img/cloth.jpg">
+<img th:if="${lost.category.id eq 3  and lost.getImageUrl() =='' }" src="/img/other.jpg">
+<img th:src="${lost.imageUrl}" alt="">
+</td>
+
+<!--<td><span sec:authentication="name">Bob</span></td>-->
+<td th:text="${lost.title}"></td>
+<td th:text="${lost.description}"></td>
+<td>
+<th:block  sec:authorize="isAuthenticated()" th:each="user:${lost.appUsers}">
+<p th:text="${user.firstName}"></p>
+</th:block>
+</td>
+<td sec:authorize="isAuthenticated()" th:text= "${lost.found}?'Found':'Not Yet Found'">Lost Status</td>
+
+<td sec:authorize="hasAuthority('ADMIN')">
+<a th:href="@{/lost/{id}(id=${lost.id})}" th:text= "${lost.found}?'Found':'Change to Found'"></a>
+
+</td>
+
+<!--<td th:text=""></td>-->
+
+<td sec:authorize="isAuthenticated()"> <a th:href="@{/editlost/{id}(id=${lost.id})}">Edit</a></td>
+
+
+</tr>
+
+
+</tbody>
+</table>
+
+
+</section>
+</body>
+</html>

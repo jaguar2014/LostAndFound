@@ -282,7 +282,7 @@
           <th scope="col">Description</th>
           <th sec:authorize="isAuthenticated()" scope="col">First Name</th>
           <th sec:authorize="isAuthenticated()" scope="col">Status</th>
-          <th sec:authorize="isAuthenticated()" scope="col">Change Status</th>
+          <th sec:authorize="hasAuthority('ADMIN')" scope="col">Change Status</th>
 
           <th sec:authorize="isAuthenticated()" scope="col">Edit</th>
 
@@ -358,7 +358,7 @@
           <th scope="col">Description</th>
           <th sec:authorize="isAuthenticated()" scope="col">First Name</th>
           <th sec:authorize="isAuthenticated()" scope="col">Status</th>
-          <th sec:authorize="isAuthenticated()" scope="col">Change Status</th>
+          <th sec:authorize="hasAuthority('ADMIN')" scope="col">Change Status</th>
 
           <th sec:authorize="isAuthenticated()" scope="col">Edit</th>
 
@@ -423,7 +423,7 @@
           <th scope="col">Description</th>
           <th sec:authorize="isAuthenticated()" scope="col">First Name</th>
           <th sec:authorize="isAuthenticated()" scope="col">Status</th>
-          <th sec:authorize="isAuthenticated()" scope="col">Change Status</th>
+          <th sec:authorize="hasAuthority('ADMIN')" scope="col">Change Status</th>
 
           <th sec:authorize="isAuthenticated()" scope="col">Edit</th>
 
