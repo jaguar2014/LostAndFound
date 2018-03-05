@@ -11,4 +11,6 @@ public interface AppUserRepository extends CrudRepository<AppUser, Long> {
     Iterable<AppUser> findByLostsIn(Iterable<Lost> losts);
 
 
+
+
 }

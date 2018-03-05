@@ -285,6 +285,7 @@
           <th sec:authorize="isAuthenticated()" scope="col">Change Status</th>
 
           <th sec:authorize="isAuthenticated()" scope="col">Edit</th>
+          <th sec:authorize="hasAuthority('ADMIN')" scope="col">Send Email</th>
 
         </tr>
         </thead>
@@ -304,7 +305,18 @@
             <td>
               <th:block  sec:authorize="isAuthenticated()" th:each="user:${lost.appUsers}">
                 <p th:text="${user.firstName}"></p>
-              </th:block>
+
+                <form th:action="@{/sendemail}" th:method="post">
+
+                  <input type="hidden" th:name ="usernameforemail" th:value="${user.username}">
+
+                  <input type="submit" value="SendEmailToUser">
+                </form>
+
+
+                </th:block>
+
+
             </td>
             <td sec:authorize="isAuthenticated()" th:text= "${lost.found}?'Found':'Not Yet Found'">Lost Status</td>
 
@@ -313,10 +325,16 @@
 
             </td>
 
+
+
             <!--<td th:text=""></td>-->
 
             <td sec:authorize="isAuthenticated()"> <a th:href="@{/editlost/{id}(id=${lost.id})}">Edit</a></td>
           </th:block>
+
+
+
+
 
         </tr>
 

@@ -215,10 +215,42 @@ public class HomeController {
 
         lost.setFound(!lost.isFound());
 
+
         lostRepository.save(lost);
 
 
         return "redirect:/";
+    }
+
+    @PostMapping("/sendemail")
+    public String sendUserEmail(Model model,HttpServletRequest request){
+
+        String username;
+
+
+        username = request.getParameter("usernameforemail");
+
+        AppUser appUser = userRepository.findAppUserByUsername(username);
+
+
+
+        Lost lost = lostRepository.findOne(appUser.getId());
+
+        if(lost.isFound()==true){
+
+            try {
+                sendEmail("sendashuemail@gmail.com","hey  "+ username+ "An Item you reported lost was found ", "A lost Item with title   "+ lost.getTitle() + "  you reported missing is found");
+                System.out.println("Email Sent!");
+
+
+            }catch(Exception ex) {
+                return "Error in sending email: "+ex;
+            }
+
+        }
+
+        return "redirect:/";
+
     }
 
 
