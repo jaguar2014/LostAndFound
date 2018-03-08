@@ -152,15 +152,20 @@ public class HomeController {
     }
 
     @PostMapping("/addlostadmin")
-    public String addLostInfoAdmin(@Valid @ModelAttribute("lost") Lost lost, Model model, BindingResult result, @RequestParam("regusername") String username, @RequestParam("anonuser")String anonuser) {
+    public String addLostInfoAdmin(@Valid @ModelAttribute("lost") Lost lost, Model model, BindingResult result, @RequestParam("regusername") String username, HttpServletRequest request) {
         if (result.hasErrors()) {
             return "lostformadmin";
         }
 
-        if(anonuser.equals("anon")){
+        String anonymoususer = request.getParameter("anonymoususer");
+        //* if(anonymoususer.equals("anony")){*//*
+        if(anonymoususer!=null){
+
             lostRepository.save(lost);
             return "redirect:/";
         }
+
+
 
         AppUser appUser = userRepository.findAppUserByUsername(username);
         lost.addAppUser(appUser);
